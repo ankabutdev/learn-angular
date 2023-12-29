@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './first-component.component.css'
 })
 export class FirstComponentComponent {
-
+  title ="hello first component";
 }
