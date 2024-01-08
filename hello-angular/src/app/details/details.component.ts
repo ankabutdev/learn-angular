@@ -14,16 +14,24 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 
 export class DetailsComponent {
-  route: ActivatedRoute = inject(ActivatedRoute);
-  housingService = inject(HousingService);
+  async send() {
+    (await this.housingService.createUser(this.applyForm.getRawValue()))
+      .subscribe(response => {
+        console.log('Post successful', response);
+      }, error => {
+        console.error('Error in post', error);
+      });
+  }
+
   housingLocation: HousingLocation | undefined;
+
   applyForm = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     email: new FormControl('')
   });
 
-  constructor() {
+  constructor(private route: ActivatedRoute, private housingService: HousingService) {
     const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
     this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
       this.housingLocation = housingLocation;

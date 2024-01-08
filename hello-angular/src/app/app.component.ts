@@ -8,13 +8,13 @@ import { HousingLocationComponent } from './housing-location/housing-location.co
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
-    imports: [CommonModule, RouterOutlet, FirstComponentComponent,
-      HomeComponent, MatSlideToggleModule, HousingLocationComponent,
-      RouterModule]
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
+  imports: [CommonModule, RouterOutlet, FirstComponentComponent,
+    HomeComponent, MatSlideToggleModule, HousingLocationComponent,
+    RouterModule]
 })
 
 export class AppComponent {
