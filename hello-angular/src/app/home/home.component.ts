@@ -5,11 +5,11 @@ import { HousingLocation } from '../housinglocation';
 import { HousingService } from '../housing.service';
 
 @Component({
-    selector: 'app-home',
-    standalone: true,
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.css',
-    imports: [HousingLocationComponent, CommonModule]
+  selector: 'app-home',
+  standalone: true,
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css',
+  imports: [HousingLocationComponent, CommonModule]
 })
 
 
@@ -24,7 +24,7 @@ export class HomeComponent {
       this.filteredLocationList = housingLocationList;
     });
   }
-  
+
   filterResults(text: string) {
     if (!text) {
       this.filteredLocationList = this.housingLocationList;
