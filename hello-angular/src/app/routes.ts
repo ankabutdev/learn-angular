@@ -1,6 +1,10 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { DetailsComponent } from './details/details.component';
+import { DemoComponent } from './demo/demo.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DropComponent } from './drop/drop.component';
+import { CatsComponent } from './cats/cats.component';
 
 const routeConfig: Routes = [
   {
@@ -12,7 +16,11 @@ const routeConfig: Routes = [
     path: 'details/:id',
     component: DetailsComponent,
     title: 'Home details'
-  }
+  },
+  { path: 'demo', component: DemoComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'drop', component: DropComponent },
+  { path: 'cats', component: CatsComponent }
 ];
 
 export default routeConfig;
