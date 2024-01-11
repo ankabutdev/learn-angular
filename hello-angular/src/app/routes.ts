@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DropComponent } from './drop/drop.component';
 import { CatsComponent } from './cats/cats.component';
 import { ConBackComponent } from './con-back/con-back.component';
+import { CrudComponent } from './crud/crud.component';
 
 const routeConfig: Routes = [
   {
@@ -22,7 +23,8 @@ const routeConfig: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'drop', component: DropComponent },
   { path: 'cats', component: CatsComponent },
-  { path: 'con-back', component: ConBackComponent }
+  { path: 'con-back', component: ConBackComponent },
+  { path: 'crud', component: CrudComponent }
 ];
 
 export default routeConfig;

@@ -62,7 +62,6 @@ export class ConBackComponent {
         alert('Error in post');
       });
 
-
   }
   private updateValueAndValidity() {
     Object.values(this.applyForm.controls).forEach(control => {
