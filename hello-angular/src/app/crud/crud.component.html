@@ -111,6 +111,22 @@
                         </div>
                     </form>
                     <div class="row g-4">
+                        <form class="example-form">
+                            <h2>Delete By Id</h2>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Id</mat-label>
+                                <input type="Id" matInput [formControl]="emailFormControl" #Id
+                                    [errorStateMatcher]="matcher" placeholder="number">
+                                <mat-hint>Errors appear instantly!</mat-hint>
+                            </mat-form-field>
+                        </form>
+
+                        <div class="col-12">
+                            <button class="w-100 btn btn-primary form-control py-3"
+                                (click)="sendProductDelete(Id.value)" type="button">Submit
+                                Now</button>
+                        </div>
+
                         <div class="col-xl-6">
                             <div class="d-flex p-4 rounded bg-white">
                                 <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>

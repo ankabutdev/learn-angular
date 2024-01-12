@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ProductNotId, Products } from "./crud.component";
 import { catchError } from "rxjs";
+import { ErrorStateMatcher } from "@angular/material/core";
+import { FormControl, FormGroupDirective, NgForm } from "@angular/forms";
 
 @Injectable({
     providedIn: 'root'
@@ -39,5 +41,12 @@ export class ProductService {
 
     async deleteProduct(id: number) {
         return await this.http.delete(this.urlDelete + "?Id=" + id)
+    }
+}
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
     }
 }

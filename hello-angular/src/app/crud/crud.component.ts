@@ -4,9 +4,11 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ProductService } from './productService';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MyErrorStateMatcher, ProductService } from './productService';
+import { FormControl, FormGroup, FormGroupDirective, FormsModule, NgForm, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 
 export interface Products {
   id: number;
@@ -31,14 +33,18 @@ export interface ProductNotId {
   selector: 'app-crud',
   standalone: true,
   imports: [MatSortModule, MatPaginatorModule, MatTableModule,
-    MatInputModule, MatFormFieldModule, ReactiveFormsModule],
+    MatInputModule, MatFormFieldModule, ReactiveFormsModule,
+    FormsModule],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.css'
 })
 
 export class CrudComponent implements OnInit {
+  constructor(private service: ProductService, private router: Router) { }
 
-  constructor(private service: ProductService) { }
+  emailFormControl = new FormControl('', [Validators.required]);
+
+  matcher = new MyErrorStateMatcher();
 
   displayedColumns: string[] = ['id', 'productName', 'category', 'condition', 'price', 'comment', 'date'];
   dataSource!: MatTableDataSource<Products>;
@@ -60,13 +66,15 @@ export class CrudComponent implements OnInit {
   });
 
   async ngOnInit() {
+    await this.GetAllProducts();
+  }
+
+  private async GetAllProducts() {
     (await this.service.getAllProducts()).subscribe(response => {
       console.log('get successful', response);
       this.values = response!;
       this.dataSource = new MatTableDataSource(this.values);
       console.log(this.dataSource);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     });
   }
 
@@ -74,8 +82,14 @@ export class CrudComponent implements OnInit {
     await this.service.createProduct(this.applyForm.getRawValue());
   }
 
+  async sendGetById(id: any) {
+    await this.service.getById(+id);
+  }
+
   async sendProductDelete(id: any) {
-    await this.service.deleteProduct(+id);
+    (await this.service.deleteProduct(+id)).subscribe();
+    alert("Deleted");
+    this.GetAllProducts();
   }
 
   applyFilter(event: Event) {

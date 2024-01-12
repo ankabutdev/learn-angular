@@ -5,6 +5,7 @@ import routeConfig from './app/routes';
 import { HttpClientModule } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 bootstrapApplication(AppComponent,
   {
@@ -12,8 +13,9 @@ bootstrapApplication(AppComponent,
       provideProtractorTestingSupport(),
       provideRouter(routeConfig),
       importProvidersFrom(HttpClientModule),
-      importProvidersFrom(BrowserAnimationsModule)
-      // importProvidersFrom(XMLHttpRequest),
+      importProvidersFrom(BrowserAnimationsModule),
+      importProvidersFrom(ErrorStateMatcher),
+      importProvidersFrom(ShowOnDirtyErrorStateMatcher)
     ]
   }
 ).catch(err => console.error(err));
