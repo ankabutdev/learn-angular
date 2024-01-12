@@ -12,16 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './con-back.component.html',
   styleUrl: './con-back.component.css'
 })
-export class ConBackComponent {
-  // async send() {
-  //   (await this.housingService.createUser(this.applyForm.getRawValue()))
-  //     .subscribe(response => {
-  //       console.log('Post successful', response);
-  //     }, error => {
-  //       console.error('Error in post', error);
-  //     });
-  // }
 
+export class ConBackComponent {
   userService: UserService | undefined;
 
   applyForm = new FormGroup({

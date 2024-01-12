@@ -5,6 +5,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProductService } from './productService';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export interface Products {
   id: number;
@@ -16,15 +18,27 @@ export interface Products {
   date: Date
 }
 
+export interface ProductNotId {
+  productName: string | null;
+  category: string | null;
+  condition: string | null;
+  price: number | null;
+  comment: string | null;
+  date: Date | null
+}
+
 @Component({
   selector: 'app-crud',
   standalone: true,
-  imports: [MatSortModule, MatPaginatorModule, MatTableModule, MatInputModule, MatFormFieldModule],
+  imports: [MatSortModule, MatPaginatorModule, MatTableModule,
+    MatInputModule, MatFormFieldModule, ReactiveFormsModule],
   templateUrl: './crud.component.html',
   styleUrl: './crud.component.css'
 })
 
 export class CrudComponent implements OnInit {
+
+  constructor(private service: ProductService) { }
 
   displayedColumns: string[] = ['id', 'productName', 'category', 'condition', 'price', 'comment', 'date'];
   dataSource!: MatTableDataSource<Products>;
@@ -36,12 +50,17 @@ export class CrudComponent implements OnInit {
 
   url = "https://localhost:7083/api/Products/GetAllProduct";
 
-  constructor(private service: ProductService) {
-  }
+  applyForm = new FormGroup({
+    productName: new FormControl('', Validators.required),
+    category: new FormControl('', Validators.required),
+    condition: new FormControl('', Validators.required),
+    price: new FormControl(0, Validators.required),
+    comment: new FormControl('', Validators.required),
+    date: new FormControl(null, Validators.required),
+  });
 
-  ngOnInit() {
-
-    this.service.getAllProducts().subscribe(response => {
+  async ngOnInit() {
+    (await this.service.getAllProducts()).subscribe(response => {
       console.log('get successful', response);
       this.values = response!;
       this.dataSource = new MatTableDataSource(this.values);
@@ -49,6 +68,14 @@ export class CrudComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  async sendProduct() {
+    await this.service.createProduct(this.applyForm.getRawValue());
+  }
+
+  async sendProductDelete(id: any) {
+    await this.service.deleteProduct(+id);
   }
 
   applyFilter(event: Event) {
