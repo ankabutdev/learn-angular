@@ -81,28 +81,36 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
+                    <h2>Create</h2>
                     <form action="" [formGroup]="applyForm" class="mb-4">
                         <div class="row g-4">
                             <div class="col-lg-6">
-                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="name"
-                                    placeholder="Your Name">
+                                <input type="text" class="w-100 form-control border-0 py-3"
+                                    formControlName="productName" placeholder="Product Name">
                             </div>
                             <div class="col-lg-6">
-                                <input type="email" class="w-100 form-control border-0 py-3"
-                                    formControlName="description" placeholder="Enter Your Email">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="category"
+                                    placeholder="Category">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="w-100 form-control border-0 py-3" name="phone"
-                                    placeholder="Enter Your Phone">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="condition"
+                                    placeholder="Condition">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="w-100 form-control border-0 py-3" name="subject"
-                                    placeholder="Subject">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="price"
+                                    placeholder="Price">
                             </div>
-                            <div class="col-12">
-                                <textarea class="w-100 form-control border-0" rows="6" cols="10"
-                                    placeholder="Your Message"></textarea>
+
+                            <div class="col-lg-6">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="comment"
+                                    placeholder="Comment">
                             </div>
+
+                            <div class="col-lg-6">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="date"
+                                    placeholder="Date">
+                            </div>
+
                             <div class="col-12">
                                 <button class="w-100 btn btn-primary form-control py-3" (click)="sendProduct()"
                                     type="button">Submit
@@ -126,13 +134,82 @@
                                 (click)="sendProductDelete(Id.value)" type="button">Submit
                                 Now</button>
                         </div>
+                    </div>
+                </div>
+
+                <!--  -->
+
+
+                <div class="col-lg-7">
+                    <h2>Update</h2>
+                    <form action="" [formGroup]="updateapplyForm" class="mb-4">
+                        <div class="row g-4">
+
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Id</mat-label>
+                                <input type="Id" matInput [formControl]="emailFormControl" #Idinput
+                                    [errorStateMatcher]="matcher" placeholder="number">
+                                <mat-hint>Errors appear instantly!</mat-hint>
+                            </mat-form-field>
+
+                            <div class="col-lg-6">
+                                <input type="text" class="w-100 form-control border-0 py-3"
+                                    formControlName="productName" placeholder="Product Name">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="category"
+                                    placeholder="Category">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="condition"
+                                    placeholder="Condition">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="price"
+                                    placeholder="Price">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="comment"
+                                    placeholder="Comment">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <input type="text" class="w-100 form-control border-0 py-3" formControlName="date"
+                                    placeholder="Date">
+                            </div>
+
+                            <div class="col-12">
+                                <button class="w-100 btn btn-primary form-control py-3"
+                                    (click)="SendUpdateProduct(Idinput.value)" type="button">Submit
+                                    Now</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row g-4">
+                        <form class="example-form">
+                            <h2>Get By Id</h2>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Id</mat-label>
+                                <input type="Id" matInput [formControl]="emailFormControl" #Idget
+                                    [errorStateMatcher]="matcher" placeholder="number">
+                                <mat-hint>Errors appear instantly!</mat-hint>
+                            </mat-form-field>
+                        </form>
+
+                        <div class="col-12">
+                            <button class="w-100 btn btn-primary form-control py-3" (click)="sendGetById(Idget.value)"
+                                type="button">Submit
+                                Now</button>
+                        </div>
 
                         <div class="col-xl-6">
                             <div class="d-flex p-4 rounded bg-white">
                                 <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
                                 <div>
-                                    <h4>Address</h4>
-                                    <p class="mb-0">{{values![1].productName}}</p>
+                                    <h4>ProductName</h4>
+                                    <p class="mb-0">{{value.productName}}</p>
                                 </div>
                             </div>
                         </div>
@@ -140,8 +217,17 @@
                             <div class="d-flex p-4 rounded bg-white">
                                 <i class="fas fa-envelope fa-2x text-primary me-4"></i>
                                 <div>
-                                    <h4>Mail Us</h4>
-                                    <p class="mb-0">{{values![1].comment}}</p>
+                                    <h4>Comment</h4>
+                                    <p class="mb-0">{{value.comment}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="d-flex p-4 rounded bg-white">
+                                <i class="fas fa-envelope fa-2x text-primary me-4"></i>
+                                <div>
+                                    <h4>Category</h4>
+                                    <p class="mb-0">{{value.category}}</p>
                                 </div>
                             </div>
                         </div>
@@ -149,28 +235,33 @@
                             <div class="d-flex p-4 rounded bg-white">
                                 <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
                                 <div>
-                                    <h4>Telephone</h4>
-                                    <p class="mb-0">(+012) 3456 7890</p>
+                                    <h4>Condition</h4>
+                                    <p class="mb-0">{{value.condition}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <div class="d-flex p-4 rounded bg-white">
-                                <i class="fa fa-share-alt fa-2x text-primary me-4"></i>
+                                <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
                                 <div>
-                                    <h4>Share</h4>
-                                    <div class="d-flex">
-                                        <a class="me-3" href=""><i class="fab fa-twitter text-dark link-hover"></i></a>
-                                        <a class="me-3" href=""><i
-                                                class="fab fa-facebook-f text-dark link-hover"></i></a>
-                                        <a class="me-3" href=""><i class="fab fa-youtube text-dark link-hover"></i></a>
-                                        <a class="" href=""><i class="fab fa-linkedin-in text-dark link-hover"></i></a>
-                                    </div>
+                                    <h4>Price</h4>
+                                    <p class="mb-0">{{value.price}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="d-flex p-4 rounded bg-white">
+                                <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
+                                <div>
+                                    <h4>Date</h4>
+                                    <p class="mb-0">{{value.date}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--  -->
+
             </div>
         </div>
     </div>

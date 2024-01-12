@@ -16,6 +16,7 @@ export class ProductService {
     urlUpdate = "https://localhost:7083/api/Products/UpdateProduct";
     urlCreate = "https://localhost:7083/api/Products/CreateProduct";
     urlDelete = "https://localhost:7083/api/Products/DeleteProduct";
+    urlGetById = "https://localhost:7083/api/Products/GetProductById"
 
     async getAllProducts() {
         return await this.http.get<Products[]>(this.urlGet)
@@ -32,10 +33,10 @@ export class ProductService {
     }
 
     async getById(id: number) {
-        return await this.http.get<Products>(this.urlGet + "?Id=" + id);
+        return await this.http.get<Products>(this.urlGetById + "?Id=" + id);
     }
 
-    async updateProduct(id: number, data: Products) {
+    async updateProduct(id: number, data: ProductNotId) {
         return await this.http.put(this.urlUpdate + "?Id=" + id, data);
     }
 

@@ -9,6 +9,7 @@ import { FormControl, FormGroup, FormGroupDirective, FormsModule, NgForm, Valida
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { response } from 'express';
 
 export interface Products {
   id: number;
@@ -54,9 +55,20 @@ export class CrudComponent implements OnInit {
 
   values!: Products[];
 
+  value!: Products;
+
   url = "https://localhost:7083/api/Products/GetAllProduct";
 
   applyForm = new FormGroup({
+    productName: new FormControl('', Validators.required),
+    category: new FormControl('', Validators.required),
+    condition: new FormControl('', Validators.required),
+    price: new FormControl(0, Validators.required),
+    comment: new FormControl('', Validators.required),
+    date: new FormControl(null, Validators.required),
+  });
+
+  updateapplyForm = new FormGroup({
     productName: new FormControl('', Validators.required),
     category: new FormControl('', Validators.required),
     condition: new FormControl('', Validators.required),
@@ -79,16 +91,30 @@ export class CrudComponent implements OnInit {
   }
 
   async sendProduct() {
-    await this.service.createProduct(this.applyForm.getRawValue());
+    (await this.service.createProduct(this.applyForm.getRawValue())).subscribe(response => {
+      console.log('Post successful', response);
+    });
+    alert("Created");
+    this.GetAllProducts();
   }
 
   async sendGetById(id: any) {
-    await this.service.getById(+id);
+    (await this.service.getById(+id)).subscribe(response => {
+      this.value = response!;
+    });
   }
 
   async sendProductDelete(id: any) {
     (await this.service.deleteProduct(+id)).subscribe();
     alert("Deleted");
+    this.GetAllProducts();
+  }
+
+  async SendUpdateProduct(id: any) {
+    (await this.service.updateProduct(+id, this.updateapplyForm.getRawValue())).subscribe(response => {
+      console.log('Put successful', response);
+    });
+    alert("Put successful");
     this.GetAllProducts();
   }
 
