@@ -1,0 +1,17 @@
+<div id="GFG">
+    <h1 style="color:green">GeeksforGeeks</h1>
+    <h2>Angular PrimeNG Carousel Responsive</h2>
+    <div style="width:80%;">
+        <p-carousel [value]="images" [circular]="true" [responsiveOptions]="responsiveOptions">
+
+            <ng-template let-images pTemplate="item">
+                <div class="product-item" style="width:80%">
+                    <div class="product-item-content">
+                        <img [src]="images.previewImageSrc" style="overflow: hidden; 
+								background-repeat: no-repeat;" width="100%" height="100%" [alt]="images.alt" [title]="images.title">
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </div>
+</div>

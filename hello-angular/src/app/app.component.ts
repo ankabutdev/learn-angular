@@ -6,6 +6,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HomeComponent } from './home/home.component';
 import { HousingLocationComponent } from './housing-location/housing-location.component';
 import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +17,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.component.css',
   imports: [CommonModule, RouterOutlet, FirstComponentComponent,
     HomeComponent, MatSlideToggleModule, HousingLocationComponent,
-    RouterModule]
+    RouterModule, CarouselModule]
 })
 
 export class AppComponent {
